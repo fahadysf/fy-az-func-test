@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<result>
+    <meta>
+        <cusotmer-id>{{ customer_id }}</cusotmer-id>
+        <edge-id>{{ edge_id }}</edge-id>
+    </meta>
+    <job>
+        <tenq>11:30:54</tenq>
+        <tdeq>11:30:54</tdeq>
+        <tlast>11:30:54</tlast>
+        <status>FIN</status>
+        <percent>100.000000</percent>
+        <recordcnt>2</recordcnt>
+        <ndev>1</ndev>
+        <nskip>0</nskip>
+        <nreq>1</nreq>
+        <nresp>1</nresp>
+        <nproc>1</nproc>
+        <eruntime>0</eruntime>
+        <id>3282</id>
+    </job>
+    <report name="Possible-Compromised-Hosts-15m" logtype="thsum" start="2020/06/01 00:00:00" start-epoch="1580504400" end="2020/06/01 00:15:00" end-epoch="1592082000" generated-at="2020/06/24 11:27:36" generated-at-epoch="1592987256" axis="src" range="Saturday, February 01, 2020">
+        <entry>
+            <src>192.168.15.43</src>
+            <resolved-src>192.168.15.43</resolved-src>
+            <threatid>Microsoft SQL Server User Authentication Brute Force Attempt</threatid>
+            <tid>40010</tid>
+            <category-of-threatid>brute-force</category-of-threatid>
+            <count>845532</count>
+        </entry>
+        <entry>
+            <src>192.168.15.43</src>
+            <resolved-src>192.168.15.43</resolved-src>
+            <threatid>Hupigon Command and Control Traffic</threatid>
+            <tid>85008</tid>
+            <category-of-threatid>spyware</category-of-threatid>
+            <count>142506</count>
+        </entry>
+        <entry>
+            <src>192.168.15.43</src>
+            <resolved-src>192.168.15.43</resolved-src>
+            <threatid>Microsoft Windows SMB Remote Code Execution Vulnerability</threatid>
+            <tid>32422</tid>
+            <category-of-threatid>code-execution</category-of-threatid>
+            <count>2632</count>
+        </entry>
+    </report>
+</result>
