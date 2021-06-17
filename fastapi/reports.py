@@ -7,9 +7,19 @@ import ipaddress
 import random
 
 THREAT_LIST = [
-    ("Microsoft SQL Server User Authentication Brute Force Attempt", 40010),
-    ("Hupigon Command and Control Traffic", 85008),
-    ("Microsoft Windows SMB Remote Code Execution Vulnerability", 32422),
+    ("Microsoft SQL Server User Authentication Brute Force Attempt", 40010, "high"),
+    ("Hupigon Command and Control Traffic", 85008, "critical"),
+    ("Microsoft Windows SMB Remote Code Execution Vulnerability", 32422, "high"),
+    ("Cobalt Strike Beacon Command and Control Traffic Detection", 86172, "critical"),
+    ("CrackDown_1_0_beta screenshot command", 11306, "high"),
+    ("TheX_1_2 execute command", 11711, "high"),
+    ("Little_Witch command pattern", 10679, "high"),
+    ("Hanky_Panky_1_1 file list command", 11316, "high"),
+    ("itsoknoproblembro Command and Control Traffic", 13275, "critical"),
+    ("Fakeav Command and Control Traffic", 13278, "critical"),
+    ("MuddyWater Command and Control Traffic", 85063, "critical"),
+    ("TA505 Command and Control Traffic", 85137, "critical"),
+    ("TA505 Command and Control Traffic", 85140, "critical"),
 ]
 
 
