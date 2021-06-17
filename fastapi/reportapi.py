@@ -1,8 +1,10 @@
 import azure.functions as func
-from .http_asgi import AsgiMiddleware
 import mimesis
 import fastapi
 from fastapi.templating import Jinja2Templates
+
+from .http_asgi import AsgiMiddleware
+from .reports import gen_data
 
 app = fastapi.FastAPI()
 templates = Jinja2Templates(directory="./templates")
@@ -20,7 +22,7 @@ async def get_user(user_id: int):
 
 
 @app.get("/api/report/")
-def get_report_data(request: fastapi.Request, type: str, customer_id: str, edge_id: str, timeframe: str = "15m"):
+async def get_report_data(request: fastapi.Request, type: str, customer_id: str, edge_id: str, timeframe: str = "15m"):
     """
     Args:
         type: 		    {report type} 		possible-compromised-hosts
@@ -37,6 +39,8 @@ def get_report_data(request: fastapi.Request, type: str, customer_id: str, edge_
             "edge_id": edge_id,
             "timeframe": timeframe,
         }
+        # modern method of merging dicts (Python 3.9+ only)
+        context = context | gen_data(report_type="possible_compromised_hosts")
 
         data = templates.TemplateResponse(
             "possible-compromised-hosts.xml", context, media_type='application/xml')
