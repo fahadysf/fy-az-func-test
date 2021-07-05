@@ -19,14 +19,12 @@
         <eruntime>0</eruntime>
         <id>3282</id>
     </job>
-    <report name="Possible-Compromised-Hosts-24h" logtype="thsum" start="2020/06/01 00:00:00" start-epoch="1580504400" end="2020/06/01 23:59:59" end-epoch="1592082000" generated-at="2020/06/24 11:27:36" generated-at-epoch="1592987256" axis="src" range="Saturday, February 01, 2020">
+    <report name="Top-Apps-24h" logtype="thsum" start="2020/06/01 00:00:00" start-epoch="1580504400" end="2020/06/01 23:59:59" end-epoch="1592082000" generated-at="2020/06/24 11:27:36" generated-at-epoch="1592987256" axis="src" range="Saturday, February 01, 2020">
         {% for i in entries %}<entry>
-            <src>{{ i.src }}</src>
-            <resolved-src>{{ i.resolved_src }}</resolved-src>
-            <threatid>{{ i.threatid }}</threatid>
-            <tid>{{ i.tid }}</tid>
-            <category-of-threatid>{{ i.category_of_threatid }}</category-of-threatid>
-            <count>{{ i.count }}</count>
+            <app>{{ i.app_name }}</app>
+            <risk-of-app>{{ i.app_risk }}</risk-of-app>
+            <bytes>{{ i.app_bytes }}</bytes>
+            <sessions>{{ i.app_sessions }}</sessions>
         </entry>{% endfor %}
     </report>
 </result>

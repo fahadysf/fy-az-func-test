@@ -31,19 +31,21 @@ async def get_report_data(request: fastapi.Request, type: str, customer_id: str,
         edge_id: 	    {customer edge ID}
 
     """
+    context = {
+        "request": request,
+        "type": type,
+        "customer_id": customer_id,
+        "edge_id": edge_id,
+        "timeframe": timeframe,
+    }
+    # modern method of merging dicts (Python 3.9+ only)
+    context = context | gen_data(report_type=type)
     if type == 'possible-compromised-hosts':
-        context = {
-            "request": request,
-            "type": type,
-            "customer_id": customer_id,
-            "edge_id": edge_id,
-            "timeframe": timeframe,
-        }
-        # modern method of merging dicts (Python 3.9+ only)
-        context = context | gen_data(report_type="possible_compromised_hosts")
-
         data = templates.TemplateResponse(
             "possible-compromised-hosts.xml", context, media_type='application/xml')
+    elif type == 'top-apps':
+        data = templates.TemplateResponse(
+            "top-apps.xml", context, media_type='application/xml')
     else:
         data = templates.TemplateResponse(
             "shampoo.xml", {"request": request, "id": id}, media_type='application/xml')

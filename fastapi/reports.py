@@ -22,6 +22,17 @@ THREAT_LIST = [
     ("TA505 Command and Control Traffic", 85140, "critical"),
 ]
 
+APP_LIST = [
+    ('salesforce', 2),
+    ('ms-ds-smb-v3', 3),
+    ('web-browsing', 3),
+    ('ssl', 4),
+    ('facebook', 3),
+    ('whatsapp', 4),
+    ('symantec-av-updates', 1),
+    ('ms-update', 1),
+]
+
 
 def random_ipv4(min_address="192.168.0.1", max_address="192.168.255.255"):
     min_ipv4 = int(ipaddress.IPv4Address(min_address))
@@ -62,6 +73,24 @@ def gen_possible_compromised_hosts(entry_count: int = 5):
     return compromised_hosts_entries
 
 
+def gen_top_apps(entry_count: int = 5):
+    app_report_entries = list()
+    for i in range(entry_count):
+        app = APP_LIST[random.randrange(len(APP_LIST)-1)]
+        app_name = app[0]
+        app_risk = app[1]
+        app_bytes = random.randrange(100000, 200000000)
+        app_sessions = random.randrange(10, 150)
+        entry_data = {
+            'app_name': app_name,
+            'app_risk': app_risk,
+            'app_bytes': app_bytes,
+            'app_sessions': app_sessions
+        }
+        app_report_entries.append(entry_data)
+    return app_report_entries
+
+
 def gen_data(report_type: str = ""):
     dataset = {
         "tenq": get_datetime(formatter="%H:%M:%S"),
@@ -69,5 +98,8 @@ def gen_data(report_type: str = ""):
         "tlast": get_datetime(timedelta=1, formatter="%H:%M:%S"),
         "entries": gen_possible_compromised_hosts(),
     }
-
+    if report_type == 'possible-compromised-hosts':
+        dataset['entries'] = gen_possible_compromised_hosts()
+    elif report_type == 'top-apps':
+        dataset['entries'] = gen_top_apps()
     return dataset
