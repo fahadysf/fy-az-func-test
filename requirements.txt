@@ -6,3 +6,4 @@ azure-functions
 fastapi
 mimesis
 jinja2
+xmltodict

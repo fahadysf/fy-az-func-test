@@ -30,7 +30,7 @@ async def get_report_data(
     customer_id: str,
     edge_id: str,
     timeframe: str = "15m",
-    format str="xml",
+    format: str = "xml",
 ):
     """
     Args:
@@ -60,8 +60,8 @@ async def get_report_data(
         data = templates.TemplateResponse(
             "shampoo.xml", {"request": request, "id": id}, media_type='application/xml')
     # return fastapi.Response(content=data, media_type="application/xml")
-    if format is 'json':
-        jsondata = xmltodict.parse(data)
+    if format == 'json':
+        jsondata = xmltodict.parse(data.body.decode('utf-8'))
         data = fastapi.Response(content=json.dumps(
             jsondata, indent=2, sort_keys=False), media_type='text/json')
     return data
