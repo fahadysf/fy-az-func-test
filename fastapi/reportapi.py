@@ -5,6 +5,8 @@ from fastapi.templating import Jinja2Templates
 
 from .http_asgi import AsgiMiddleware
 from .reports import gen_data
+import xmltodict
+import json
 
 app = fastapi.FastAPI()
 templates = Jinja2Templates(directory="./templates")
@@ -22,13 +24,21 @@ async def get_user(user_id: int):
 
 
 @app.get("/api/report/")
-async def get_report_data(request: fastapi.Request, type: str, customer_id: str, edge_id: str, timeframe: str = "15m"):
+async def get_report_data(
+    request: fastapi.Request,
+    type: str,
+    customer_id: str,
+    edge_id: str,
+    timeframe: str = "15m",
+    format str="xml",
+):
     """
     Args:
         type: 		    {report type} 		possible-compromised-hosts
         timeframe: 	    {report time frame}	options: 15m
         customer_id:	{customer bcrm ID}
         edge_id: 	    {customer edge ID}
+        format:         {output format 'xml' or 'json'}
 
     """
     context = {
@@ -50,6 +60,10 @@ async def get_report_data(request: fastapi.Request, type: str, customer_id: str,
         data = templates.TemplateResponse(
             "shampoo.xml", {"request": request, "id": id}, media_type='application/xml')
     # return fastapi.Response(content=data, media_type="application/xml")
+    if format is 'json':
+        jsondata = xmltodict.parse(data)
+        data = fastapi.Response(content=json.dumps(
+            jsondata, indent=2, sort_keys=False), media_type='text/json')
     return data
 
 
