@@ -1,5 +1,4 @@
 import azure.functions as func
-import mimesis
 import fastapi
 from fastapi.templating import Jinja2Templates
 
@@ -10,17 +9,6 @@ import json
 
 app = fastapi.FastAPI()
 templates = Jinja2Templates(directory="./templates")
-
-
-@app.get("/api/user/{user_id}")
-async def get_user(user_id: int):
-    fake_user = mimesis.Person()
-    return {
-        "user_id": user_id,
-        "username": fake_user.username(),
-        "firstname": fake_user.first_name(),
-        "lastname": fake_user.last_name(),
-    }
 
 
 @app.get("/api/report/")
@@ -52,13 +40,15 @@ async def get_report_data(
     context = context | gen_data(report_type=type)
     if type == 'possible-compromised-hosts':
         data = templates.TemplateResponse(
-            "possible-compromised-hosts.xml", context, media_type='application/xml')
+            "possible-compromised-hosts.xml",
+            context, media_type='application/xml')
     elif type == 'top-apps':
         data = templates.TemplateResponse(
             "top-apps.xml", context, media_type='application/xml')
     else:
         data = templates.TemplateResponse(
-            "shampoo.xml", {"request": request, "id": id}, media_type='application/xml')
+            "shampoo.xml", {"request": request, "id": id},
+            media_type='application/xml')
     # return fastapi.Response(content=data, media_type="application/xml")
     if format == 'json':
         jsondata = xmltodict.parse(data.body.decode('utf-8'))
